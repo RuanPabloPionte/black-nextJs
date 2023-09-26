@@ -1,24 +1,28 @@
-"use client";
-import { NextPage } from "next";
-import { useEffect, useState } from "react";
-// import { Col, Container, Row } from "reactstrap";
+// "use client";
+import { GetServerSideProps, NextPage } from "next";
+// import { ReactNode, useEffect, useState } from "react";
 
-type apiReponse = {
+type ApiResponse = {
   name: string;
   timestamp: Date;
 };
 
-const Dynamic: NextPage = () => {
-  const [clientData, setClientData] = useState<apiReponse>();
+const Dynamic = async () => {
+  // const [clientData, setClientData] = useState<ApiResponse>();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
-  const fetchData = async () => {
-    const clientData = await fetch("/api/hello").then((res) => res.json());
-    setClientData(clientData);
-  };
+  // const fetchData = async () => {
+  //   const clientData = await fetch("/api/hello").then((res) => res.json());
+  //   setClientData(clientData);
+  // };
+
+  // renderiza do lado no servidor, olhar no network do browser
+  const clientData = await fetch("http://localhost:3000/api/hello").then(
+    (res) => res.json()
+  );
 
   return (
     <main className="container">
@@ -27,10 +31,19 @@ const Dynamic: NextPage = () => {
       <div className="row">
         <div className="col">
           <h3>Gerado no servidor:</h3>
+          <p>{}</p>
         </div>
 
         <div className="col">
-          <h3>Gerado no cliente: {clientData?.name}</h3>
+          <h3>Gerado no cliente: </h3>
+          <p>{clientData?.name}</p>
+          <p>
+            {clientData?.timestamp.toLocaleString("pt-Br", {
+              hour: "numeric",
+              minute: "numeric",
+              second: "numeric",
+            })}
+          </p>
         </div>
       </div>
     </main>
