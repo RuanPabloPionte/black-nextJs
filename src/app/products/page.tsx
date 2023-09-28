@@ -1,6 +1,8 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import { getProducts } from "@/services/product";
+// import ProductCard from "../../components/ProductCard";
+import ProductsList from "@/components/ProductList";
 const Products = async () => {
   const products = await getProducts();
   return (
@@ -12,8 +14,7 @@ const Products = async () => {
       </Head>
 
       <h1>Nossos Produtos</h1>
-      {products &&
-        products.map((product) => <p key={product.id}>{product.name}</p>)}
+      {products && <ProductsList products={products} />}
     </>
   );
 };
