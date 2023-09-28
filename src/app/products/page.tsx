@@ -1,7 +1,8 @@
 import { NextPage } from "next";
 import Head from "next/head";
-
-const Products: NextPage = () => {
+import { getProducts } from "@/services/product";
+const Products = async () => {
+  const products = await getProducts();
   return (
     <>
       <Head>
@@ -11,6 +12,8 @@ const Products: NextPage = () => {
       </Head>
 
       <h1>Nossos Produtos</h1>
+      {products &&
+        products.map((product) => <p key={product.id}>{product.name}</p>)}
     </>
   );
 };
