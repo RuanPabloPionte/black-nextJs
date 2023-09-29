@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import ProductDetails from "@/components/ProductDetails";
 import { getProduct } from "@/services/product";
-import Head from "next/head";
+import Header from "@/components/Header";
 
 export default function Product({
   params,
@@ -24,5 +24,12 @@ export default function Product({
     fetchData();
   }, [params.id]);
 
-  return <div>{product && <ProductDetails product={product} />}</div>;
+  return (
+    <>
+      <Header />
+      <div className="container m-4">
+        {product && <ProductDetails product={product} />}
+      </div>
+    </>
+  );
 }
