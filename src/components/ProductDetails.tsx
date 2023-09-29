@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Button, Col, Row } from "reactstrap";
 import { ProductsType } from "../services/product";
 import SuccessToast from "./SuccessToast";
+import { useCart } from "@/hooks/useCart";
 
 type ProductDetailsProps = {
   product: ProductsType;
@@ -10,6 +11,7 @@ type ProductDetailsProps = {
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const [toastIsOpen, setToastIsOpen] = useState(false);
+  const { addProduct } = useCart();
 
   return (
     <Row>
@@ -34,7 +36,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
         <p className="text-muted">Em estoque: {product.inStock}</p>
 
-        <Button color="dark" className="my-3 pb-2">
+        <Button
+          color="dark"
+          className="my-3 pb-2"
+          onClick={() => {
+            addProduct(product);
+            setToastIsOpen;
+          }}
+        >
           Compre agora
         </Button>
 
