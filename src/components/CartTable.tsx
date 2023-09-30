@@ -45,7 +45,7 @@ const CartTableRow = (props: { entry: CartEntry }) => {
         <Button
           color="danger"
           size="sm"
-          onClick={() => removeProduct(props.entry.product.id)}
+          onClick={() => console.log(props.entry.product?.quantity)}
         >
           –
         </Button>
@@ -53,10 +53,6 @@ const CartTableRow = (props: { entry: CartEntry }) => {
     </tr>
   );
 };
-
-// src/components/CartTable.tsx
-
-// ...
 
 export default function CartTable() {
   const [cartEntries, setCartEntries] = useState<CartEntry[]>([]);
