@@ -45,7 +45,7 @@ const CartTableRow = (props: { entry: CartEntry }) => {
         <Button
           color="danger"
           size="sm"
-          onClick={() => console.log(props.entry.product?.quantity)}
+          onClick={() => removeProduct(props.entry.product.id)}
         >
           –
         </Button>

@@ -17,14 +17,26 @@ type CartContextType = {
 const CartContext = createContext<CartContextType>({} as CartContextType);
 
 export const CartContextProvider = (props: { children: ReactNode }) => {
-  const [cart, setCart] = useState<ProductsType[]>(
-    JSON.parse(localStorage.getItem("shopping-cart") || "[]")
-  );
+  const [cart, setCart] = useState<ProductsType[]>([]);
 
   useEffect(() => {
-    localStorage.setItem("shopping-cart", JSON.stringify(cart));
-  }, [cart]);
+    // Check if localStorage is available
+    const storedCart =
+      typeof window !== "undefined"
+        ? localStorage.getItem("shopping-cart")
+        : null;
 
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Check if localStorage is available
+    if (typeof window !== "undefined") {
+      localStorage.setItem("shopping-cart", JSON.stringify(cart));
+    }
+  }, [cart]);
   const addProduct = (product: ProductsType) => {
     const updatedCart = [...cart, product];
     setCart(updatedCart);
